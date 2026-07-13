@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import { headers } from "next/headers";
 import "../src/index.css";
 
 export const metadata: Metadata = {
@@ -11,6 +12,7 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image" },
 };
 
-export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
-  return <html lang="en" suppressHydrationWarning><body>{children}</body></html>;
+export default async function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
+  const language = (await headers()).get("x-page-language") === "ar" ? "ar" : "en";
+  return <html lang={language === "ar" ? "ar-SA" : "en"} dir={language === "ar" ? "rtl" : "ltr"} suppressHydrationWarning><body>{children}</body></html>;
 }
