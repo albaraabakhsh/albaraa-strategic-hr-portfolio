@@ -114,9 +114,6 @@ export default function Footer({ data, isRtl, onToggleLanguage }: FooterProps) {
               <a href="#projects" onClick={(e) => handleNavClick(e, "projects")} className="text-xs sm:text-sm text-white/80 hover:text-sky-blue font-semibold transition-colors">
                 {data.navigation.projects}
               </a>
-              <a href="#achievements" onClick={(e) => handleNavClick(e, "achievements")} className="text-xs sm:text-sm text-white/80 hover:text-sky-blue font-semibold transition-colors">
-                {data.navigation.achievements}
-              </a>
               <a href="#credentials" onClick={(e) => handleNavClick(e, "credentials")} className="text-xs sm:text-sm text-white/80 hover:text-sky-blue font-semibold transition-colors">
                 {data.navigation.credentials}
               </a>

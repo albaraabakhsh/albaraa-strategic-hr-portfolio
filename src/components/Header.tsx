@@ -62,7 +62,6 @@ export default function Header({ data, isRtl, onToggleLanguage }: HeaderProps) {
     { id: "expertise", dataId: "expertise", label: data.navigation.expertise },
     { id: "experience", label: data.navigation.experience },
     { id: "projects", label: data.navigation.projects },
-    { id: "achievements", label: data.navigation.achievements },
     { id: "credentials", label: data.navigation.credentials },
     { id: "contact", label: data.navigation.contact },
   ];
