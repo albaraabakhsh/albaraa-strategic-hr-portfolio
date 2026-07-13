@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Noto+Sans+Arabic:wght@400;600;700;900&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -66,4 +65,3 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #1061B2;
 }
-

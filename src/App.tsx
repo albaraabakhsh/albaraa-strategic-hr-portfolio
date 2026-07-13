@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect } from "react";
 import { translationEn, translationAr } from "./data/profile";
 import Header from "./components/Header";
@@ -6,16 +8,14 @@ import About from "./components/About";
 import Expertise from "./components/Expertise";
 import Experience from "./components/Experience";
 import Projects from "./components/Projects";
-import Achievements from "./components/Achievements";
 import Philosophy from "./components/Philosophy";
 import Credentials from "./components/Credentials";
 import Capabilities from "./components/Capabilities";
-import Recommendations from "./components/Recommendations";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 
-export default function App() {
-  const [lang, setLang] = useState<"en" | "ar">("en");
+export default function App({ initialLanguage = "en" }: { initialLanguage?: "en" | "ar" }) {
+  const [lang] = useState<"en" | "ar">(initialLanguage);
   const isRtl = lang === "ar";
   const currentData = isRtl ? translationAr : translationEn;
 
@@ -30,7 +30,7 @@ export default function App() {
   }, [lang, currentData]);
 
   const handleToggleLanguage = () => {
-    setLang((prev) => (prev === "en" ? "ar" : "en"));
+    window.location.assign(lang === "en" ? "/ar/" : "/");
   };
 
   return (
@@ -64,9 +64,6 @@ export default function App() {
         {/* Projects / Case Studies portfolio */}
         <Projects data={currentData} isRtl={isRtl} />
 
-        {/* Visual Achievements & Verified Metrics */}
-        <Achievements data={currentData} isRtl={isRtl} />
-
         {/* Executive Philosophy quotation */}
         <Philosophy data={currentData} isRtl={isRtl} />
 
@@ -75,9 +72,6 @@ export default function App() {
 
         {/* Tech Stack & digital capability alignment */}
         <Capabilities data={currentData} isRtl={isRtl} />
-
-        {/* Authenticated Recommendations / endorsements */}
-        <Recommendations data={currentData} isRtl={isRtl} />
 
         {/* Contact coordinates & spam-safe inquiry form */}
         <Contact data={currentData} isRtl={isRtl} />
@@ -92,4 +86,3 @@ export default function App() {
     </div>
   );
 }
-

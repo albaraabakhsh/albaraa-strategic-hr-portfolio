@@ -80,9 +80,9 @@ export default function About({ data, isRtl }: AboutProps) {
                   </span>
                 </div>
                 <div>
-                  <span className="text-2xl sm:text-3xl font-black block text-sky-blue leading-none">100%</span>
+                  <span className="text-2xl sm:text-3xl font-black block text-sky-blue leading-none">7+</span>
                   <span className="text-[10px] sm:text-xs text-white/70 font-semibold uppercase mt-1 block">
-                    {isRtl ? "الالتزام بالحوكمة والامتثال" : "Governance Compliance"}
+                    {isRtl ? "سنوات خبرة في الموارد البشرية" : "Years in Human Resources"}
                   </span>
                 </div>
               </div>

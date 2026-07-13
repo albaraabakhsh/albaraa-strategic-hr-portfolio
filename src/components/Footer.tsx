@@ -37,11 +37,8 @@ export default function Footer({ data, isRtl, onToggleLanguage }: FooterProps) {
       "addressLocality": "Riyadh",
       "addressCountry": "Saudi Arabia"
     },
-    "email": "ALBaraBakhsh@gmail.com",
-    "sameAs": [
-      "https://www.linkedin.com/in/[LinkedIn_Username_Placeholder]",
-      "https://github.com/[GitHub_Username_Placeholder]"
-    ]
+    "email": "albarabakhsh@gmail.com",
+    "sameAs": []
   };
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {

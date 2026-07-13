@@ -85,7 +85,7 @@ export default function Contact({ data, isRtl }: ContactProps) {
     return Object.keys(nextErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitSuccess(false);
     setSubmitError(false);
@@ -94,12 +94,14 @@ export default function Contact({ data, isRtl }: ContactProps) {
 
     setIsSubmitting(true);
 
-    // Simulate safe API posting to protect secrets
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...formData, consent: Boolean(formData.consent), website: "" }),
+      });
+      if (!response.ok) throw new Error("delivery rejected");
       setSubmitSuccess(true);
-      
-      // Reset form fields
       setFormData({
         name: "",
         email: "",
@@ -109,7 +111,11 @@ export default function Contact({ data, isRtl }: ContactProps) {
         consent: false,
         securityAnswer: ""
       });
-    }, 1500);
+    } catch {
+      setSubmitError(true);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -167,30 +173,6 @@ export default function Contact({ data, isRtl }: ContactProps) {
                 </div>
               </div>
 
-              {/* LinkedIn & GitHub Grid */}
-              <div className="grid grid-cols-2 gap-4">
-                {/* LinkedIn */}
-                <div className="p-4 bg-white rounded-xl border border-border-default space-y-2">
-                  <Linkedin className="w-5 h-5 text-brand-blue" />
-                  <span className="block text-[10px] font-black uppercase tracking-wider text-muted-text">
-                    LinkedIn
-                  </span>
-                  <span className="text-xs text-muted-text font-bold truncate block">
-                    [LinkedIn URL]
-                  </span>
-                </div>
-
-                {/* GitHub */}
-                <div className="p-4 bg-white rounded-xl border border-border-default space-y-2">
-                  <Github className="w-5 h-5 text-brand-blue" />
-                  <span className="block text-[10px] font-black uppercase tracking-wider text-muted-text">
-                    GitHub
-                  </span>
-                  <span className="text-xs text-muted-text font-bold truncate block">
-                    [GitHub URL]
-                  </span>
-                </div>
-              </div>
             </div>
 
             {/* Privacy notice concerning credentials */}

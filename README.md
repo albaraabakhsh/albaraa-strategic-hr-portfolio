@@ -1,20 +1,20 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# Albaraa Bakhsh — Strategic HR Portfolio
 
-# Run and deploy your AI Studio app
+Production portfolio for [theprosteps.com](https://theprosteps.com), built with Next.js, TypeScript, Tailwind CSS, and a standalone Docker runtime.
 
-This contains everything you need to run your app locally.
+## Local development
 
-View your app in AI Studio: https://ai.studio/apps/371b784c-a23b-4674-99d1-f5baa4cc4421
+```bash
+npm ci
+npm run dev
+```
 
-## Run Locally
+## Verification
 
-**Prerequisites:**  Node.js
+```bash
+npm run lint
+npm run build
+docker build -t albaraa-portfolio .
+```
 
-
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+English is served at `/` and Arabic at `/ar/`. Health checks use `/api/health`. Copy `.env.example` to the deployment environment and supply SMTP values to enable contact delivery; secrets must never be committed.

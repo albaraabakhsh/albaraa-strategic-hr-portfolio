@@ -191,7 +191,7 @@ export interface ProfileData {
   };
 }
 
-export const translationEn: ProfileData = {
+const rawTranslationEn: ProfileData = {
   meta: {
     title: "Albaraa Bakhsh | Head of HR, Planning, Development and Digital Transformation",
     description: "Professional portfolio of Albaraa Bakhsh, an HR and planning leader specializing in organizational development, workforce planning, digital transformation, people technology, and business applications."
@@ -864,7 +864,7 @@ export const translationEn: ProfileData = {
   }
 };
 
-export const translationAr: ProfileData = {
+const rawTranslationAr: ProfileData = {
   meta: {
     title: "البراء بخش | رئيس الموارد البشرية والتخطيط والتطوير وقائد تحول الموارد البشرية",
     description: "الموقع المهني الخاص بالبراء بخش، قائد موارد بشرية وتخطيط متخصص في التطوير التنظيمي، وتخطيط القوى العاملة، والتحول الرقمي، وتقنيات الأفراد، وتطبيقات الأعمال."
@@ -1536,3 +1536,46 @@ export const translationAr: ProfileData = {
     }
   }
 };
+
+function productionProfile(source: ProfileData, language: "en" | "ar"): ProfileData {
+  const isAr = language === "ar";
+  const projectStatus: Record<string, [string, string]> = {
+    peoplebefore: [isAr ? "قيد التطوير" : "In development", isAr ? "صُممت متطلبات المنصة ومسارات الخصوصية والتقارير وخطط العمل." : "Defined the platform requirements, privacy model, reporting workflows, and action-planning structure."],
+    kayanhr: [isAr ? "مبادرة تنفيذ جارية" : "Implementation in progress", isAr ? "تنسيق المتطلبات وتهيئة البيانات ومسارات الموافقات ضمن مبادرة التحول السحابي." : "Coordinating requirements, data preparation, and approval workflows for the cloud implementation initiative."],
+    ats: [isAr ? "للاستخدام التشغيلي الداخلي" : "Internal operational use", isAr ? "تصميم المتطلبات الوظيفية ومسارات اللجان والتقييم." : "Led functional requirements, committee workflows, and evaluation structures."],
+    scholarship: [isAr ? "للاستخدام التشغيلي الداخلي" : "Internal operational use", isAr ? "تصميم قواعد الأهلية ومسارات المراجعة والتقارير." : "Defined eligibility, review, and reporting workflows."],
+  };
+  const experience = { ...source.experience, items: [{
+    ...source.experience.items[0],
+    company: isAr ? "شركة قيم التعليمية" : "Qyem Educational Company",
+    period: "",
+    achievements: source.experience.items[0].achievements.map(value => value.replace("implemented", "designed")),
+  }] };
+  const projects = { ...source.projects, items: source.projects.items.map(project => {
+    const correction = projectStatus[project.id];
+    return correction ? { ...project, status: correction[0], outcome: correction[1] } : project;
+  }) };
+  const credentials = {
+    ...source.credentials,
+    education: source.credentials.education.map(item => ({ ...item, institution: "", date: "" })),
+    certifications: source.credentials.certifications.slice(0, 4).map((item, index) => ({
+      ...item,
+      issuer: index === 0 ? "CIPD" : index === 1 ? "" : item.issuer,
+      date: index === 0 ? (isAr ? "يوليو 2023" : "July 2023") : "",
+      id: undefined,
+      url: undefined,
+    })),
+  };
+  return {
+    ...source,
+    experience,
+    projects,
+    achievements: { ...source.achievements, items: [] },
+    credentials,
+    recommendations: { ...source.recommendations, items: [] },
+    contact: { ...source.contact, coordinates: { ...source.contact.coordinates, email: "albarabakhsh@gmail.com", linkedin: "", github: "", twitter: "", whatsapp: "", meetingUrl: "" } },
+  };
+}
+
+export const translationEn = productionProfile(rawTranslationEn, "en");
+export const translationAr = productionProfile(rawTranslationAr, "ar");
